@@ -1,0 +1,6 @@
+@CinemaBookingAPI_SOA_CA2_JIanfengHan_HostAddress = http://localhost:5213
+
+GET {{CinemaBookingAPI_SOA_CA2_JIanfengHan_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
