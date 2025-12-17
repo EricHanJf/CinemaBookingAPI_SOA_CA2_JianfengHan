@@ -1,3 +1,4 @@
+using CinemaBookingAPI_SOA_CA2_JianfengHan.DTOs.Movies;
 using CinemaBookingAPI_SOA_CA2_JIanfengHan.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,14 +18,22 @@ public class MoviesController : ControllerBase
     
     // GET: api/movies
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Movie>>> GetMovies()
+    public async Task<ActionResult<IEnumerable<MovieReadDto>>> GetMovies()
     {
-        return await _context.Movies.ToListAsync();
+        return await _context.Movies
+            .Select(m => new MovieReadDto
+            {
+                Id = m.Id,
+                Title = m.Title,
+                DurationMinutes = m.DurationMinutes,
+                Genre = m.Genre
+            })
+            .ToListAsync();
     }
     
     // GET: api/movies/id(1)
     [HttpGet("{id}")]
-    public async Task<ActionResult<Movie>> GetMovie(int id)
+    public async Task<ActionResult<MovieReadDto>> GetMovie(long id)
     {
         var movie = await _context.Movies.FindAsync(id);
 
@@ -33,29 +42,59 @@ public class MoviesController : ControllerBase
             return NotFound();
         }
 
-        return movie;
+        var dto = new MovieReadDto
+        {
+            Id = movie.Id,
+            Title = movie.Title,
+            DurationMinutes = movie.DurationMinutes,
+            Genre = movie.Genre
+        };
+
+        return Ok(dto);
     }
     
     // POST: api/movies
     [HttpPost]
-    public async Task<ActionResult<Movie>> PostMovie(Movie movie)
+    public async Task<ActionResult<MovieReadDto>> CreateMovie(MovieCreateDto dto)
     {
+        var movie = new Movie
+        {
+            Title = dto.Title,
+            Description = dto.Description,
+            DurationMinutes = dto.DurationMinutes,
+            Genre = dto.Genre
+        };
+
         _context.Movies.Add(movie);
         await _context.SaveChangesAsync();
 
-        return CreatedAtAction(nameof(GetMovie), new { id = movie.Id }, movie);
+        var result = new MovieReadDto
+        {
+            Id = movie.Id,
+            Title = movie.Title,
+            DurationMinutes = movie.DurationMinutes,
+            Genre = movie.Genre
+        };
+
+        return CreatedAtAction(nameof(GetMovie), new { id = movie.Id }, result);
     }
     
     // PUT: api/movies/5
     [HttpPut("{id}")]
-    public async Task<IActionResult> PutMovie(int id, Movie movie)
+    public async Task<IActionResult> UpdateMovie(long id, MovieUpdateDto dto)
     {
-        if (id != movie.Id)
+        var movie = await _context.Movies.FindAsync(id);
+
+        if (movie == null)
         {
-            return BadRequest();
+            return NotFound();
         }
 
-        _context.Entry(movie).State = EntityState.Modified;
+        movie.Title = dto.Title;
+        movie.Description = dto.Description;
+        movie.DurationMinutes = dto.DurationMinutes;
+        movie.Genre = dto.Genre;
+
         await _context.SaveChangesAsync();
 
         return NoContent();
@@ -63,7 +102,7 @@ public class MoviesController : ControllerBase
     
     // DELETE: api/movies/id(1)
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteMovie(int id)
+    public async Task<IActionResult> DeleteMovie(long id)
     {
         var movie = await _context.Movies.FindAsync(id);
         if (movie == null)
