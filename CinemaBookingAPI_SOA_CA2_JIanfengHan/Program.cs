@@ -1,4 +1,6 @@
 using CinemaBookingAPI_SOA_CA2_JIanfengHan.Models;
+using CinemaBookingAPI_SOA_CA2_JianfengHan.Repositories;
+using CinemaBookingAPI_SOA_CA2_JianfengHan.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace CinemaBookingAPI_SOA_CA2_JianfengHan;
@@ -12,11 +14,18 @@ public class Program
         // Add services to the container.
         builder.Services.AddControllers();
 
+        //Repository
+        builder.Services.AddScoped<IMovieRepository, MovieRepository>();
+        builder.Services.AddScoped<IUserRepository, UserRepository>();
+        
         // DbContext - SQLite (persistent storage for CA)
         builder.Services.AddDbContext<CinemaContext>(
             opt => opt.UseSqlite("Data Source=cinema.db")
         );
-
+        
+        //Service
+        builder.Services.AddScoped<IAuthService, AuthService>();
+        
         // Swagger
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();

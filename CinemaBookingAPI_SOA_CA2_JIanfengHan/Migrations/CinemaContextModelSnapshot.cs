@@ -32,9 +32,14 @@ namespace CinemaBookingAPI_SOA_CA2_JIanfengHan.Migrations
                     b.Property<long>("SeatId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
                     b.HasIndex("SeatId");
+
+                    b.HasIndex("UserId");
 
                     b.HasIndex("ScreeningId", "SeatId")
                         .IsUnique();
@@ -111,6 +116,29 @@ namespace CinemaBookingAPI_SOA_CA2_JIanfengHan.Migrations
                     b.ToTable("Seats");
                 });
 
+            modelBuilder.Entity("CinemaBookingAPI_SOA_CA2_JIanfengHan.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ApiKey")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
             modelBuilder.Entity("CinemaBookingAPI_SOA_CA2_JIanfengHan.Models.Booking", b =>
                 {
                     b.HasOne("CinemaBookingAPI_SOA_CA2_JIanfengHan.Models.Screening", "Screening")
@@ -124,6 +152,10 @@ namespace CinemaBookingAPI_SOA_CA2_JIanfengHan.Migrations
                         .HasForeignKey("SeatId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("CinemaBookingAPI_SOA_CA2_JIanfengHan.Models.User", null)
+                        .WithMany("Bookings")
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Screening");
 
@@ -152,6 +184,11 @@ namespace CinemaBookingAPI_SOA_CA2_JIanfengHan.Migrations
                 });
 
             modelBuilder.Entity("CinemaBookingAPI_SOA_CA2_JIanfengHan.Models.Seat", b =>
+                {
+                    b.Navigation("Bookings");
+                });
+
+            modelBuilder.Entity("CinemaBookingAPI_SOA_CA2_JIanfengHan.Models.User", b =>
                 {
                     b.Navigation("Bookings");
                 });
