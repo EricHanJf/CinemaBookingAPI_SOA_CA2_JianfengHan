@@ -70,7 +70,8 @@ public class Program
         using (var scope = app.Services.CreateScope())
         {
             var db = scope.ServiceProvider.GetRequiredService<CinemaContext>();
-            db.Database.Migrate();
+            // db.Database.Migrate();
+            db.Database.EnsureCreated(); // for railway deploy
         }
         app.UseSwagger();
         app.UseSwaggerUI();
