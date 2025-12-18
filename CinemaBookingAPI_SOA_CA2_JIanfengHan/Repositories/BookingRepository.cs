@@ -60,4 +60,23 @@ public class BookingRepository : IBookingRepository
     {
         await _context.SaveChangesAsync();
     }
+    
+    public async Task<Booking?> GetByIdAsync(long bookingId, int userId)
+    {
+        return await _context.Bookings
+            .FirstOrDefaultAsync(b => b.Id == bookingId && b.UserId == userId);
+    }
+
+    public async Task<bool> DeleteAsync(long bookingId, int userId)
+    {
+        var booking = await _context.Bookings
+            .FirstOrDefaultAsync(b => b.Id == bookingId && b.UserId == userId);
+
+        if (booking == null)
+            return false;
+
+        _context.Bookings.Remove(booking);
+        await _context.SaveChangesAsync();
+        return true;
+    }
 }

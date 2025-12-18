@@ -10,6 +10,8 @@ public interface IBookingRepository
         long screeningId,
         long seatId
     );
-    Task AddAsync(Booking booking);
-    Task SaveChangesAsync();
+    Task<Booking?> GetByIdAsync(long bookingId, int userId);
+    Task<bool> DeleteAsync(long bookingId, int userId);
+    // Task AddAsync(Booking booking);
+    // Task SaveChangesAsync();
 }

@@ -85,7 +85,7 @@ public class ScreeningsController : ControllerBase
             });
     }
 
-    // PUT: api/screenings/5
+    // PUT: api/screenings/1
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateScreening(long id, ScreeningUpdateDto dto)
     {
@@ -100,7 +100,7 @@ public class ScreeningsController : ControllerBase
         return NoContent();
     }
 
-    // DELETE: api/screenings/5
+    // DELETE: api/screenings/1
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteScreening(long id)
     {

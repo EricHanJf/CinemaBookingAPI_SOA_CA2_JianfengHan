@@ -18,6 +18,7 @@ public class Program
         builder.Services.AddScoped<IMovieRepository, MovieRepository>();
         builder.Services.AddScoped<IUserRepository, UserRepository>();
         builder.Services.AddScoped<IBookingRepository, BookingRepository>();
+        builder.Services.AddScoped<ISeatRepository, SeatRepository>();
         
         // DbContext - SQLite (persistent storage for CA)
         builder.Services.AddDbContext<CinemaContext>(

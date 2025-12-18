@@ -56,4 +56,36 @@ public class BookingsController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
+    
+    // GET: api/bookings/5
+    [HttpGet("{id}")]
+    public async Task<ActionResult<BookingReadDto>> GetBooking(long id)
+    {
+        var userId = (int)HttpContext.Items["UserId"]!;
+
+        var booking = await _bookingRepository.GetByIdAsync(id, userId);
+        if (booking == null)
+            return NotFound();
+
+        return Ok(new BookingReadDto
+        {
+            Id = booking.Id,
+            ScreeningId = booking.ScreeningId,
+            SeatId = booking.SeatId,
+            CreatedAt = booking.CreatedAt
+        });
+    }
+    
+    // DELETE: api/bookings/5
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteBooking(long id)
+    {
+        var userId = (int)HttpContext.Items["UserId"]!;
+
+        var success = await _bookingRepository.DeleteAsync(id, userId);
+        if (!success)
+            return NotFound();
+
+        return NoContent();
+    }
 }
