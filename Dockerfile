@@ -5,7 +5,7 @@ WORKDIR /src
 # copy csproj only
 COPY CinemaBookingAPI_SOA_CA2_JIanfengHan/CinemaBookingAPI_SOA_CA2_JIanfengHan.csproj ./CinemaBookingAPI/
 
-RUN dotnet restore ./CinemaBookingAPI/CinemaBookingAPI_SOA_CA2_JianfengHan.csproj
+RUN dotnet restore ./CinemaBookingAPI/CinemaBookingAPI_SOA_CA2_JIanfengHan.csproj
 
 # copy everything
 COPY CinemaBookingAPI_SOA_CA2_JIanfengHan/ ./CinemaBookingAPI/
