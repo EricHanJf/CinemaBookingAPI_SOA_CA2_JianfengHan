@@ -1,22 +1,19 @@
-# ---------- BUILD STAGE ----------
+# ---------- BUILD ----------
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-# copy solution and project files
-COPY CinemaBookingAPI_SOA_CA2_JianfengHan.sln .
-COPY CinemaBookingAPI_SOA_CA2_JianfengHan/*.csproj ./CinemaBookingAPI_SOA_CA2_JianfengHan/
+# copy csproj only
+COPY CinemaBookingAPI_SOA_CA2_JianfengHan/CinemaBookingAPI_SOA_CA2_JianfengHan.csproj ./CinemaBookingAPI/
 
-# restore
-RUN dotnet restore
+RUN dotnet restore ./CinemaBookingAPI/CinemaBookingAPI_SOA_CA2_JianfengHan.csproj
 
-# copy everything else
-COPY . .
+# copy everything
+COPY CinemaBookingAPI_SOA_CA2_JianfengHan/ ./CinemaBookingAPI/
 
-# publish
-RUN dotnet publish CinemaBookingAPI_SOA_CA2_JianfengHan/CinemaBookingAPI_SOA_CA2_JianfengHan.csproj \
+RUN dotnet publish ./CinemaBookingAPI/CinemaBookingAPI_SOA_CA2_JianfengHan.csproj \
     -c Release -o /app/publish
 
-# ---------- RUNTIME STAGE ----------
+# ---------- RUNTIME ----------
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 
@@ -26,6 +23,7 @@ ENV ASPNETCORE_URLS=http://0.0.0.0:8080
 EXPOSE 8080
 
 ENTRYPOINT ["dotnet", "CinemaBookingAPI_SOA_CA2_JianfengHan.dll"]
+
 
 
 
