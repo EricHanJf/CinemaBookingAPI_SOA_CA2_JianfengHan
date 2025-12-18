@@ -17,6 +17,7 @@ public class Program
         //Repository
         builder.Services.AddScoped<IMovieRepository, MovieRepository>();
         builder.Services.AddScoped<IUserRepository, UserRepository>();
+        builder.Services.AddScoped<IBookingRepository, BookingRepository>();
         
         // DbContext - SQLite (persistent storage for CA)
         builder.Services.AddDbContext<CinemaContext>(
@@ -29,6 +30,33 @@ public class Program
         // Swagger
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+        
+        builder.Services.AddSwaggerGen(c =>
+        {
+            c.AddSecurityDefinition("ApiKey", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+            {
+                Description = "API Key needed to access the endpoints. X-API-KEY: {key}",
+                In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+                Name = "X-API-KEY",
+                Type = Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey
+            });
+
+            c.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
+            {
+                {
+                    new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+                    {
+                        Reference = new Microsoft.OpenApi.Models.OpenApiReference
+                        {
+                            Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
+                            Id = "ApiKey"
+                        }
+                    },
+                    new string[] {}
+                }
+            });
+        });
+
 
         var app = builder.Build();
 

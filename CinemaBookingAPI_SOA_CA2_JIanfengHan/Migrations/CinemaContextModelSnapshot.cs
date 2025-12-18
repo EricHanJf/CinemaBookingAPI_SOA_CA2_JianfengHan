@@ -32,7 +32,7 @@ namespace CinemaBookingAPI_SOA_CA2_JIanfengHan.Migrations
                     b.Property<long>("SeatId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -114,6 +114,197 @@ namespace CinemaBookingAPI_SOA_CA2_JIanfengHan.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Seats");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            HallNumber = 1,
+                            Row = "A",
+                            SeatNumber = 1
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            HallNumber = 1,
+                            Row = "A",
+                            SeatNumber = 2
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            HallNumber = 1,
+                            Row = "A",
+                            SeatNumber = 3
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            HallNumber = 1,
+                            Row = "B",
+                            SeatNumber = 1
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            HallNumber = 1,
+                            Row = "B",
+                            SeatNumber = 2
+                        },
+                        new
+                        {
+                            Id = 6L,
+                            HallNumber = 1,
+                            Row = "B",
+                            SeatNumber = 3
+                        },
+                        new
+                        {
+                            Id = 7L,
+                            HallNumber = 1,
+                            Row = "C",
+                            SeatNumber = 1
+                        },
+                        new
+                        {
+                            Id = 8L,
+                            HallNumber = 1,
+                            Row = "C",
+                            SeatNumber = 2
+                        },
+                        new
+                        {
+                            Id = 9L,
+                            HallNumber = 1,
+                            Row = "C",
+                            SeatNumber = 3
+                        },
+                        new
+                        {
+                            Id = 10L,
+                            HallNumber = 1,
+                            Row = "D",
+                            SeatNumber = 1
+                        },
+                        new
+                        {
+                            Id = 11L,
+                            HallNumber = 1,
+                            Row = "D",
+                            SeatNumber = 2
+                        },
+                        new
+                        {
+                            Id = 12L,
+                            HallNumber = 1,
+                            Row = "D",
+                            SeatNumber = 3
+                        },
+                        new
+                        {
+                            Id = 13L,
+                            HallNumber = 1,
+                            Row = "D",
+                            SeatNumber = 4
+                        },
+                        new
+                        {
+                            Id = 14L,
+                            HallNumber = 2,
+                            Row = "A",
+                            SeatNumber = 1
+                        },
+                        new
+                        {
+                            Id = 15L,
+                            HallNumber = 2,
+                            Row = "A",
+                            SeatNumber = 2
+                        },
+                        new
+                        {
+                            Id = 16L,
+                            HallNumber = 2,
+                            Row = "A",
+                            SeatNumber = 3
+                        },
+                        new
+                        {
+                            Id = 17L,
+                            HallNumber = 2,
+                            Row = "B",
+                            SeatNumber = 1
+                        },
+                        new
+                        {
+                            Id = 18L,
+                            HallNumber = 2,
+                            Row = "B",
+                            SeatNumber = 2
+                        },
+                        new
+                        {
+                            Id = 19L,
+                            HallNumber = 2,
+                            Row = "B",
+                            SeatNumber = 3
+                        },
+                        new
+                        {
+                            Id = 20L,
+                            HallNumber = 2,
+                            Row = "C",
+                            SeatNumber = 1
+                        },
+                        new
+                        {
+                            Id = 21L,
+                            HallNumber = 2,
+                            Row = "C",
+                            SeatNumber = 2
+                        },
+                        new
+                        {
+                            Id = 22L,
+                            HallNumber = 2,
+                            Row = "C",
+                            SeatNumber = 3
+                        },
+                        new
+                        {
+                            Id = 23L,
+                            HallNumber = 2,
+                            Row = "C",
+                            SeatNumber = 4
+                        },
+                        new
+                        {
+                            Id = 24L,
+                            HallNumber = 2,
+                            Row = "D",
+                            SeatNumber = 1
+                        },
+                        new
+                        {
+                            Id = 25L,
+                            HallNumber = 2,
+                            Row = "D",
+                            SeatNumber = 2
+                        },
+                        new
+                        {
+                            Id = 26L,
+                            HallNumber = 2,
+                            Row = "D",
+                            SeatNumber = 3
+                        },
+                        new
+                        {
+                            Id = 27L,
+                            HallNumber = 2,
+                            Row = "D",
+                            SeatNumber = 4
+                        });
                 });
 
             modelBuilder.Entity("CinemaBookingAPI_SOA_CA2_JIanfengHan.Models.User", b =>
@@ -153,13 +344,17 @@ namespace CinemaBookingAPI_SOA_CA2_JIanfengHan.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CinemaBookingAPI_SOA_CA2_JIanfengHan.Models.User", null)
+                    b.HasOne("CinemaBookingAPI_SOA_CA2_JIanfengHan.Models.User", "User")
                         .WithMany("Bookings")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Screening");
 
                     b.Navigation("Seat");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("CinemaBookingAPI_SOA_CA2_JIanfengHan.Models.Screening", b =>
