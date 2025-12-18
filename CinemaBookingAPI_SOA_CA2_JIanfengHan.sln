@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaBookingAPI_SOA_CA2_JIanfengHan", "CinemaBookingAPI_SOA_CA2_JIanfengHan\CinemaBookingAPI_SOA_CA2_JIanfengHan.csproj", "{2CFB79E5-C1D3-4599-8BE3-B65F26F6D92F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaBookingApiTest", "CinemaBookingApiTest\CinemaBookingApiTest.csproj", "{9EECCF8F-51F8-4A7E-A960-3592A3F32A0E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{2CFB79E5-C1D3-4599-8BE3-B65F26F6D92F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CFB79E5-C1D3-4599-8BE3-B65F26F6D92F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CFB79E5-C1D3-4599-8BE3-B65F26F6D92F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EECCF8F-51F8-4A7E-A960-3592A3F32A0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EECCF8F-51F8-4A7E-A960-3592A3F32A0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EECCF8F-51F8-4A7E-A960-3592A3F32A0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EECCF8F-51F8-4A7E-A960-3592A3F32A0E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
